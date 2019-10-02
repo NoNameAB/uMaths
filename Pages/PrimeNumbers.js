@@ -3,18 +3,17 @@ import { ScrollView, Text, StyleSheet } from "react-native"
 import { ActivityIndicator, Colors, TextInput, Button, Dialog, Portal, Paragraph } from "react-native-paper"
 import { Icon, Container, Content } from "native-base"
 
-class LCM extends React.Component {
+class PrimeNumber extends React.Component {
     state = {
-        num1: '',
-        num2: "",
+        text: '',
         visible: false,
         res: "",
         loading: false
     }
     static navigationOptions = ({ navigation }) => ({
-        title: "LCM Calculator",
+        title: "Prime Numbers",
         headerLeft: <Icon name="ios-menu" style={{ paddingLeft: 10 }} onPress={() => navigation.openDrawer()} />,
-        drawerLabel: 'LCM Calculator',
+        drawerLabel: 'Prime Numbers',
         drawerIcon: ({ tintColor }) => (
             <Image
                 source={require('../assets/icon.png')}
@@ -27,7 +26,7 @@ class LCM extends React.Component {
     }
     hideDialog = () => {
         this.setState({ visible: false })
-        this.setState({ num1: "", num2: "", res: '' })
+        this.setState({ text: "", res: '' })
         this.hideActivator()
     }
     showActivator = () => {
@@ -36,32 +35,32 @@ class LCM extends React.Component {
     hideActivator = () => {
         this.setState({ loading: false })
     }
-    gcdOfTwoNum = (num1, num2) => {
-        let x = Math.abs(num1)
-        let y = Math.abs(num2)
-        while (y) {
-            let t = y;
-            y = x % y;
-            x = t
+    primeCheck = (num) => {
+        if(num === 1){
+            return false
         }
-        this.showActivator()
-        return x
+        else if (num === 2 || num === 3){
+            return true
+        }
+        else {
+            for(i = 3; i < num; i++){
+                if(num % i === 0){
+                    return false
+                }
+            }
+            return true
+        }
     }
     handleSubmit = () => {
         let res = ""
-        let num1 = parseInt(this.state.num1)
-        let num2 = parseInt(this.state.num2)
+        let num = parseInt(this.state.text)
         this.showActivator()
-        let x = 0
-        if (!num1 || !num2) {
-            res = "Please enter valid numbers"
-            this.setState({ res })
-            this.showDialog()
+        if(this.primeCheck(num)){
+            res = "The number " + num + " is prime."
         }
         else {
-            x = (!num1 || !num2) ? 0 : Math.abs((num1 * num2) / this.gcdOfTwoNum(num1, num2))
+            res = "The number " + num + " is not prime."
         }
-        res = "The LCM of " + num1 + " and " + num2 + " is equal to " + x
         this.setState({ res })
         this.showDialog()
     }
@@ -69,10 +68,8 @@ class LCM extends React.Component {
         return (
             <Container>
                 <Content contentContainerStyle={styles.container}>
-                    <Text style={styles.text}>Type the first number : </Text>
-                    <TextInput error={this.state.error} keyboardType="number-pad" style={styles.textInput} placeholder="Type the first number ..." label="First Number" value={this.state.num1} onChangeText={text => { this.setState({ num1: text }) }} />
-                    <Text style={styles.text}>Type the second number : </Text>
-                    <TextInput error={this.state.error} keyboardType="number-pad" style={styles.textInput} placeholder="Type the second number ..." label="Second Number" value={this.state.num2} onChangeText={text => { this.setState({ num2: text }) }} />
+                    <Text style={styles.text}>Type a number : </Text>
+                    <TextInput error={this.state.error} keyboardType="number-pad" style={styles.textInput} placeholder="Type a number ..." label="Number" value={this.state.text} onChangeText={text => { this.setState({ text }) }} />
                     <Button disabled={this.state.loading} mode="contained" onPress={this.handleSubmit}>
                         Submit
                 </Button>
@@ -118,4 +115,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default LCM
+export default PrimeNumber

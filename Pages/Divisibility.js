@@ -3,7 +3,7 @@ import { ScrollView, Text, StyleSheet } from "react-native"
 import { ActivityIndicator, Colors, TextInput, Button, Dialog, Portal, Paragraph } from "react-native-paper"
 import { Icon, Container, Content } from "native-base"
 
-class LCM extends React.Component {
+class Divisibility extends React.Component {
     state = {
         num1: '',
         num2: "",
@@ -12,9 +12,9 @@ class LCM extends React.Component {
         loading: false
     }
     static navigationOptions = ({ navigation }) => ({
-        title: "LCM Calculator",
+        title: "Divisibility",
         headerLeft: <Icon name="ios-menu" style={{ paddingLeft: 10 }} onPress={() => navigation.openDrawer()} />,
-        drawerLabel: 'LCM Calculator',
+        drawerLabel: 'Divisibility',
         drawerIcon: ({ tintColor }) => (
             <Image
                 source={require('../assets/icon.png')}
@@ -36,32 +36,17 @@ class LCM extends React.Component {
     hideActivator = () => {
         this.setState({ loading: false })
     }
-    gcdOfTwoNum = (num1, num2) => {
-        let x = Math.abs(num1)
-        let y = Math.abs(num2)
-        while (y) {
-            let t = y;
-            y = x % y;
-            x = t
-        }
-        this.showActivator()
-        return x
-    }
     handleSubmit = () => {
         let res = ""
         let num1 = parseInt(this.state.num1)
         let num2 = parseInt(this.state.num2)
         this.showActivator()
-        let x = 0
-        if (!num1 || !num2) {
-            res = "Please enter valid numbers"
-            this.setState({ res })
-            this.showDialog()
-        }
+        if(num1 % num2 === 0){
+            res = num1 + " is divisible by " + num2
+        } 
         else {
-            x = (!num1 || !num2) ? 0 : Math.abs((num1 * num2) / this.gcdOfTwoNum(num1, num2))
+            res = num1 + " is not divisible by " + num2 + " and the rest is " + num1 % num2
         }
-        res = "The LCM of " + num1 + " and " + num2 + " is equal to " + x
         this.setState({ res })
         this.showDialog()
     }
@@ -118,4 +103,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default LCM
+export default Divisibility

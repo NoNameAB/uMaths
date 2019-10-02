@@ -3,22 +3,51 @@ import { createStackNavigator } from "react-navigation-stack"
 import { createDrawerNavigator, DrawerNavigatorItems } from "react-navigation-drawer"
 import { createAppContainer } from 'react-navigation'
 import { StyleSheet, Image  } from "react-native"
-import { Container, Content, Header, Body, Icon } from 'native-base'
+import { Container, Content, Header, Body } from 'native-base'
 import Divisors from "../Pages/Divisors"
+import GCD from "../Pages/GCD"
+import LCM from "../Pages/LCM"
+import Divisibility from "../Pages/Divisibility"
+import PrimeNumbers from "../Pages/PrimeNumbers"
 
 const divisorsStack = createStackNavigator({
   Divisors: {
     screen: Divisors
   }
 })
+
+const gcdStack = createStackNavigator({
+  GCD: {
+    screen: GCD
+  }
+})
+
+const lcmStack = createStackNavigator({
+  LCM: {
+    screen: LCM
+  }
+})
+
+const divisibilityStack = createStackNavigator({
+  Divisibility: {
+    screen: Divisibility
+  }
+})
+
+const primeStack = createStackNavigator({
+  PrimeNumbers: {
+    screen: PrimeNumbers
+  }
+})
+
 const CustomDrawerContentComponent = (props) => (
 
-  <Container>
+  <Container >
     <Header style={styles.drawerHeader}>
       <Body>
         <Image
           style={styles.drawerImage}
-          source={require('../assets/icon.png')} />
+          source={require('../assets/maths.png')} />
       </Body>
     </Header>
     <Content>
@@ -32,6 +61,21 @@ const CustomDrawerContentComponent = (props) => (
 const drawerNavigator = createDrawerNavigator({
   Divisors: {
     screen: divisorsStack
+  },
+  GCD: {
+    screen: gcdStack
+  },
+  LCM: {
+    screen: lcmStack
+  },
+  Divisibility: {
+    screen: divisibilityStack
+  },
+  PrimeNumbers: {
+    screen: primeStack,
+    navigationOptions:{
+      title: 'Prime Numbers'
+    }
   }
 }, {
   initialRouteName: 'Divisors',
@@ -58,6 +102,8 @@ const styles = StyleSheet.create({
   drawerImage: {
     height: 150,
     width: 150,
+    marginLeft: "auto",
+    marginRight: "auto",
     borderRadius: 75
   }
 

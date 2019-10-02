@@ -2,7 +2,6 @@ import React from "react"
 import { ScrollView, Text, StyleSheet } from "react-native"
 import { ActivityIndicator, Colors, TextInput, Button, Dialog, Portal, Paragraph } from "react-native-paper"
 import { Icon, Container, Content } from "native-base"
-import CustomHeader from "../components/CustomHeader"
 
 class Divisors extends React.Component {
     state = {
@@ -12,9 +11,9 @@ class Divisors extends React.Component {
         loading: false
     }
     static navigationOptions = ({ navigation }) => ({
-        title: "Divisors",
+        title: "Divisors Calculator",
         headerLeft: <Icon name="ios-menu" style={{ paddingLeft: 10 }} onPress={() => navigation.openDrawer()} />,
-        drawerLabel: 'Divisors',
+        drawerLabel: 'Divisors Calculator',
         drawerIcon: ({ tintColor }) => (
             <Image
                 source={require('../assets/icon.png')}
@@ -39,10 +38,8 @@ class Divisors extends React.Component {
     handleSubmit = () => {
         let res = ""
         let div = []
-        let loading = false
         let num = parseInt(this.state.text)
         div = []
-        loading = true
         this.showActivator()
         for (i = 1; i <= num; i++) {
             if (num % i === 0) {
@@ -56,7 +53,6 @@ class Divisors extends React.Component {
             }
         }
         res += "Number of divisors : " + div.length
-        loading = false
         this.setState({ res })
         this.showDialog()
     }
@@ -74,7 +70,7 @@ class Divisors extends React.Component {
                         <Dialog
                             visible={this.state.visible}
                             onDismiss={this._hideDialog}>
-                            <Dialog.Title>Divisors</Dialog.Title>
+                            <Dialog.Title>Result</Dialog.Title>
                             <Dialog.ScrollArea>
                                 <ScrollView>
                                     <Paragraph>{this.state.res}</Paragraph>
