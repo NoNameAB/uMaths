@@ -113,8 +113,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 20,
-        marginLeft: 5,
-        marginTop: 5
+        marginLeft: 10,
+        marginTop: 10
     }
 });
 

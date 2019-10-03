@@ -2,13 +2,20 @@ import React from "react"
 import { createStackNavigator } from "react-navigation-stack"
 import { createDrawerNavigator, DrawerNavigatorItems } from "react-navigation-drawer"
 import { createAppContainer } from 'react-navigation'
-import { StyleSheet, Image  } from "react-native"
+import { StyleSheet, Image } from "react-native"
 import { Container, Content, Header, Body } from 'native-base'
 import Divisors from "../Pages/Divisors"
 import GCD from "../Pages/GCD"
 import LCM from "../Pages/LCM"
 import Divisibility from "../Pages/Divisibility"
 import PrimeNumbers from "../Pages/PrimeNumbers"
+import Home from "../Pages/Home"
+
+const homeStack = createStackNavigator({
+  Home: {
+    screen: Home
+  }
+})
 
 const divisorsStack = createStackNavigator({
   Divisors: {
@@ -59,6 +66,9 @@ const CustomDrawerContentComponent = (props) => (
 );
 
 const drawerNavigator = createDrawerNavigator({
+  Home: {
+    screen: homeStack
+  },
   Divisors: {
     screen: divisorsStack
   },
@@ -73,12 +83,12 @@ const drawerNavigator = createDrawerNavigator({
   },
   PrimeNumbers: {
     screen: primeStack,
-    navigationOptions:{
+    navigationOptions: {
       title: 'Prime Numbers'
     }
   }
 }, {
-  initialRouteName: 'Divisors',
+  initialRouteName: 'Home',
   drawerPosition: 'left',
   contentComponent: CustomDrawerContentComponent,
   drawerOpenRoute: 'DrawerOpen',
